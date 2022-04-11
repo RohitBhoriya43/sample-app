@@ -9,7 +9,7 @@ import {
   TextInput,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
-import DashboardBottom from './BottomNavigation';
+// import DashboardBottom from './BottomNavigation';
 import {RenderItem} from './RenderItem';
 import VideoSlider from './VideoSlider';
 
@@ -65,7 +65,7 @@ const Dashboard = ({navigation}) => {
       />
       <View
         style={{
-          marginTop: (135 / 844) * height,
+          marginTop: (42 / 844) * height,
           marginLeft: (16 / 390) * width,
         }}>
         <View style={styles.headingContainer}>
@@ -83,12 +83,30 @@ const Dashboard = ({navigation}) => {
         }}
         horizontal>
         {RenderItem.map((item, index) => (
-          <View key={index} style={styles.midScroll}></View>
+          <View key={index}>
+            <View style={styles.midScroll}></View>
+            <View style={styles.slideName}>
+              <Text style={styles.slideNameText}>Course 0{index + 1}</Text>
+            </View>
+            <View style={styles.reviewContainer}>
+              <View style={styles.reviewCircle}></View>
+              <View style={styles.reviewCircle}></View>
+              <View style={styles.reviewCircle}></View>
+              <View style={styles.reviewCircle}></View>
+              <View style={styles.reviewCircle}></View>
+              <View style={styles.reviewTextContainer}>
+                <Text style={styles.textReview}>76</Text>
+              </View>
+            </View>
+            <View style={styles.priceContainer}>
+              <Text style={styles.priceText}>&#x20B9;1200</Text>
+            </View>
+          </View>
         ))}
       </ScrollView>
       <View
         style={{
-          marginTop: (134 / 844) * height,
+          marginTop: (49 / 844) * height,
           marginLeft: (16 / 390) * width,
         }}>
         <View style={styles.headingContainer}>
@@ -106,7 +124,25 @@ const Dashboard = ({navigation}) => {
         }}
         horizontal>
         {RenderItem.map((item, index) => (
-          <View key={index} style={styles.midScroll}></View>
+          <View key={index}>
+            <View style={styles.midScroll}></View>
+            <View style={styles.slideName}>
+              <Text style={styles.slideNameText}>Course 0{index + 1}</Text>
+            </View>
+            <View style={styles.reviewContainer}>
+              <View style={styles.reviewCircle}></View>
+              <View style={styles.reviewCircle}></View>
+              <View style={styles.reviewCircle}></View>
+              <View style={styles.reviewCircle}></View>
+              <View style={styles.reviewCircle}></View>
+              <View style={styles.reviewTextContainer}>
+                <Text style={styles.textReview}>76</Text>
+              </View>
+            </View>
+            <View style={styles.priceContainer}>
+              <Text style={styles.priceText}>&#x20B9;1200</Text>
+            </View>
+          </View>
         ))}
       </ScrollView>
       <View style={styles.bottomNavigation}>{/* <DashboardBottom /> */}</View>
@@ -135,8 +171,8 @@ const styles = StyleSheet.create({
     borderColor: '#020202',
     borderRadius: 4,
     // backgroundColor: '#FFFFFF',
-    paddingLeft: (16 / 390) * width,
-    paddingTop: (8 / 844) * height,
+    // paddingLeft: (16 / 390) * width,
+    padding: (8 / 844) * height,
     fontSize: 16,
     // justifyContent: 'center',
     letterSpacing: 0.15,
@@ -175,10 +211,59 @@ const styles = StyleSheet.create({
     backgroundColor: '#C4C4C4',
     marginRight: (15 / 390) * width,
   },
+  slideName: {
+    marginTop: (11 / 844) * height,
+    fontSize: 18,
+    fontStyle: 'normal',
+    fontWeight: '600',
+    lineHeight: 22,
+    color: 'black',
+  },
+  slideNameText: {
+    fontSize: 18,
+    fontStyle: 'normal',
+    fontWeight: '600',
+    // marginLeft: (x / 390) * width,
+    color: '#262626',
+  },
+  reviewContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    marginTop: (7 / 844) * height,
+    // marginLeft: (80 / 390) * width,
+  },
+  reviewCircle: {
+    height: (16 / 844) * height,
+    width: (16 / 390) * width,
+    backgroundColor: '#7B7B7B',
+    marginRight: (2 / 390) * width,
+    borderRadius: 50,
+  },
+  reviewTextContainer: {
+    marginLeft: (6 / 390) * width,
+  },
+  textReview: {
+    fontSize: 14,
+    fontWeight: '400',
+    fontFamily: 'Proxima Nova',
+    fontStyle: 'normal',
+    color: '#262626',
+  },
+  priceContainer: {
+    marginLeft: (2 / 390) * width,
+    marginTop: (7 / 844) * height,
+  },
+  priceText: {
+    fontSize: 14,
+    fontWeight: '400',
+    fontFamily: 'Rubik',
+    fontStyle: 'normal',
+    color: '#262626',
+  },
   bottomNavigation: {
     // height: (100 / 844) * height,
     width: width,
-    marginTop: (111 / 844) * height,
+    marginTop: (26 / 844) * height,
     // backgroundColor: '#C4C4C4',
     // opacity: 0.1,
   },

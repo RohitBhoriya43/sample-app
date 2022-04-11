@@ -210,7 +210,8 @@ const App = () => {
         }}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Verification" component={Verification} />
-        <Stack.Screen name="Dashboard" component={BottomNavigation} />
+        <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
+        {/* <Stack.Screen name="Dashboard" component={Dashboard} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -8,12 +8,10 @@ import Dashboard from './Dashboard';
 const Tab = createBottomTabNavigator();
 const BottomNavigation = () => {
   return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
-      <Tab.Screen
-        name="DashboardScreen"
-        component={Dashboard}
-        options={{title: 'Dashboard'}}
-      />
+    <Tab.Navigator
+      initialRouteName="Dashboard"
+      screenOptions={{headerShown: false}}>
+      <Tab.Screen name="Dashboard" component={Dashboard} />
       <Tab.Screen name="About" component={About} />
       <Tab.Screen name="Contact" component={Contact} />
     </Tab.Navigator>

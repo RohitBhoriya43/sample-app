@@ -25,7 +25,7 @@ const Verification = ({navigation, route}) => {
 
   const {pin1, pin2, pin3, pin4} = pin;
 
-  //   console.warn(pin);
+  console.warn(pin4.length);
   return (
     <View>
       <View style={styles.headingContainer}>
@@ -80,6 +80,7 @@ const Verification = ({navigation, route}) => {
               otp4Ref.current.focus();
             }
           }}
+          onKeyPress={({nativeEvent}) => {}}
           textAlign="center"
           style={styles.otpInput}
           maxLength={1}
@@ -88,6 +89,14 @@ const Verification = ({navigation, route}) => {
           keyboardType="phone-pad"
           ref={otp4Ref}
           onChangeText={text => setPin({...pin, pin4: text})}
+          onKeyPress={({nativeEvent}) => {
+            if (nativeEvent.key === 'delete' && pin3.length === 1) {
+              setPin({...pin, pin4: ''});
+              otp3Ref.current.focus();
+            } else if (nativeEvent.key === 'delete' && pin4.length === 0) {
+              otp3Ref.focus();
+            }
+          }}
           textAlign="center"
           style={styles.otpInput}
           maxLength={1}
@@ -101,9 +110,7 @@ const Verification = ({navigation, route}) => {
         </TouchableOpacity>
       </View>
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('Dashboard', {screen: 'DashboardScreen'})
-        }
+        onPress={() => navigation.navigate('BottomNavigation')}
         disabled={
           pin1 !== '' && pin2 !== '' && pin3 !== '' && pin4 !== ''
             ? false
