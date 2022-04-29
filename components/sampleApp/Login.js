@@ -47,7 +47,11 @@ const Login = ({navigation}) => {
         />
         <TouchableOpacity
           disabled={phone.length === 10 ? false : true}
-          style={phone.length === 10 ? styles.enableButton : styles.loginButton}
+          style={
+            phone.length === 10
+              ? [styles.loginButton, styles.enableButton]
+              : styles.loginButton
+          }
           onPress={() => navigation.push('Verification', phone)}>
           <Text style={styles.buttontext}>Login</Text>
         </TouchableOpacity>
@@ -163,14 +167,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   enableButton: {
-    height: (48 / 844) * windowHeight,
-    width: (342 / 390) * windowWidth,
     backgroundColor: '#ff6a00',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: (24 / 390) * windowWidth,
-    marginBottom: (16 / 844) * windowHeight,
-
     borderRadius: 8,
   },
   buttontext: {

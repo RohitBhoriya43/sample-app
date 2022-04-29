@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Dimensions,
   TextInput,
+  TouchableOpacity,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 // import DashboardBottom from './BottomNavigation';
@@ -18,7 +19,7 @@ const {width, height} = Dimensions.get('window');
 const renderVideo = ({item, index}) => {
   return (
     <View>
-      <VideoSlider data={item} />
+      <VideoSlider data={index} />
     </View>
   );
 };
@@ -27,10 +28,12 @@ const Dashboard = ({navigation}) => {
   return (
     <ScrollView style={{flex: 1, backgroundColor: 'white', height: height}}>
       <View style={styles.searchContainer}>
-        <Image
-          style={styles.hamburgerIcon}
-          source={require('demo/components/assests/images/hamburgerIcon.png')}
-        />
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <Image
+            style={styles.hamburgerIcon}
+            source={require('demo/components/assests/images/hamburgerIcon.png')}
+          />
+        </TouchableOpacity>
 
         <TextInput
           placeholderTextColor="#757575"
@@ -53,14 +56,10 @@ const Dashboard = ({navigation}) => {
       </View>
 
       <Carousel
-        // ref={c => {
-        //   this._carousel = c;
-        // }}
-
         data={RenderItem}
         renderItem={renderVideo}
         sliderWidth={width}
-        itemWidth={290}
+        itemWidth={(275 / 390) * width}
         loop={true}
       />
       <View
@@ -127,7 +126,7 @@ const Dashboard = ({navigation}) => {
           <View key={index}>
             <View style={styles.midScroll}></View>
             <View style={styles.slideName}>
-              <Text style={styles.slideNameText}>Course 0{index + 1}</Text>
+              <Text style={styles.slideNameText}>Course 0{index + 1} </Text>
             </View>
             <View style={styles.reviewContainer}>
               <View style={styles.reviewCircle}></View>
@@ -149,6 +148,7 @@ const Dashboard = ({navigation}) => {
     </ScrollView>
   );
 };
+
 const styles = StyleSheet.create({
   searchContainer: {
     flex: 1,
@@ -234,9 +234,10 @@ const styles = StyleSheet.create({
   },
   reviewCircle: {
     height: (16 / 844) * height,
-    width: (16 / 390) * width,
+    width: (16 / 844) * height,
     backgroundColor: '#7B7B7B',
     marginRight: (2 / 390) * width,
+    borderRadius: (16 / 390) * width,
     borderRadius: 50,
   },
   reviewTextContainer: {

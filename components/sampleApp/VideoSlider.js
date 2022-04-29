@@ -8,7 +8,7 @@ const VideoSlider = ({data}) => {
     <View style={{marginTop: (19 / 844) * height}}>
       <View style={styles.slideView}></View>
       <View style={styles.slideName}>
-        <Text style={styles.slideNameText}>Course 01</Text>
+        <Text style={styles.slideNameText}>Course 0</Text>
       </View>
       <View style={styles.reviewContainer}>
         <View style={styles.reviewCircle}></View>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
   reviewCircle: {
     height: (16 / 844) * height,
-    width: (16 / 390) * width,
+    width: (16 / 844) * height,
     backgroundColor: '#7B7B7B',
     marginRight: (2 / 390) * width,
     borderRadius: 50,
