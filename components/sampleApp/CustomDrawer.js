@@ -6,13 +6,11 @@ import {
   Dimensions,
   StyleSheet,
   TouchableOpacity,
-  Modal,
 } from 'react-native';
 
 // import {} from "@react-navigation/drawer"
 import CameraIcon from 'react-native-vector-icons/Ionicons';
-import ImagePicker from 'react-native-image-crop-picker';
-import CameraScreen from './CameraScreen';
+
 import {Camera} from 'react-native-vision-camera';
 
 const {height, width} = Dimensions.get('window');
@@ -21,29 +19,21 @@ const CustomDrawer = ({navigation, path}) => {
     'https://cdn2.vectorstock.com/i/1000x1000/20/76/man-avatar-profile-vector-21372076.jpg',
   );
 
-  console.log(path);
+  // const [imagePath] = useState()
+
+  // console.log(path);
 
   const cameraPermission = async () => {
-    const newCameraPermission = await Camera.requestCameraPermission();
-    const newMicrophonePermission = await Camera.requestMicrophonePermission();
-
-    return navigation.navigate('Camera');
+    try {
+      const newCameraPermission = await Camera.requestCameraPermission();
+      const newMicrophonePermission =
+        await Camera.requestMicrophonePermission();
+      return navigation.navigate('Camera');
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  // console.log(route.params);
-
-  // const takePicture = () => {
-  //   ImagePicker.openCamera({
-  //     width: 300,
-  //     height: 400,
-  //     // cropping: true,
-  //     // enableRotationGesture: true,
-  //     useFrontCamera: true,
-  //   }).then(image => {
-  //     console.log(image);
-  //     setImage(image.path);
-  //   });
-  // };
   return (
     <View style={{flex: 1, height: height}}>
       <View>
@@ -58,15 +48,7 @@ const CustomDrawer = ({navigation, path}) => {
 
         <Text style={styles.profile}>Picture</Text>
         <View>
-          {/* <View
-            style={{
-              backgroundColor: 'red',
-              height: (80 / 844) * height,
-              width: (80 / 844) * height,
-              top: (10 / 844) * height,
-              left: (103 / 390) * width,
-              alignItems: 'center',
-            }}> */}
+          {/* <View style={styles.pictureView}> */}
           {path ? (
             <Image
               style={styles.pictureContainer}
@@ -80,8 +62,8 @@ const CustomDrawer = ({navigation, path}) => {
               resizeMode="stretch"
             />
           )}
-
           {/* </View> */}
+
           <TouchableOpacity
             style={styles.cameraButton}
             onPress={cameraPermission}>
@@ -149,6 +131,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#C4C4C4',
     zIndex: 1,
   },
+  // pictureView: {
+  //   height: (87 / 844) * height,
+  //   width: (87 / 844) * height,
+  //   borderWidth: 1,
+  //   borderColor: '#ff0000',
+  //   top: (10 / 844) * height,
+  //   left: (103 / 390) * width,
+  //   borderRadius: 50,
+  //   // tintColor: '#fff',
+  //   alignItems: 'center',
+  //   zIndex: -2,
+  // },
   pictureContainer: {
     // position: 'absolute',
     height: (80 / 844) * height,

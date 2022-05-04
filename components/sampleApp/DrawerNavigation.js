@@ -9,7 +9,7 @@ const {width, height} = Dimensions.get('window');
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = ({route}) => {
-  // console.log(route);
+  console.log(route.params);
   return (
     <Drawer.Navigator
       screenOptions={{

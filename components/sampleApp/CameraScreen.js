@@ -1,4 +1,4 @@
-import React, {useMemo, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -11,13 +11,12 @@ import {
 import {Camera} from 'react-native-vision-camera';
 import {useCameraDevices} from 'react-native-vision-camera';
 import CameraIcon from 'react-native-vector-icons/Ionicons';
-import {AuthContext} from '../navigationScreen/TabNavigation/context';
 
 const {height, width} = Dimensions.get('window');
 
 const CameraScreen = ({navigation}) => {
-  const {selfieImage} = React.useContext(AuthContext);
   const [backCamera, setBackCamera] = useState(false);
+  const [saveButton, setSaveButton] = useState(false);
   const devices = useCameraDevices();
   const frontCam = devices.front;
   const backCam = devices.back;
@@ -36,61 +35,96 @@ const CameraScreen = ({navigation}) => {
 
   const takePicture = async () => {
     try {
-      const photo = await camera.current.takePhoto({flash: 'off'});
+      const Photo = await camera.current.takePhoto({flash: 'off'});
       // selfieImage = photo.path;
-      setPhoto(photo.path);
-      console.log(photo.path);
+      setSaveButton(true);
+      setPhoto(Photo);
+
+      // console.log(photo.Photo.path);
     } catch (e) {
       console.log(e);
     }
   };
 
-  // const savePath = () => console.warn(selfieImage);
+  const backButton = () => {
+    // if (photo.Photo.path !== undefined) {
+    //   setPhoto({...photo, photo});
+    // }
+    // console.log(photo.Photo.path);
+    return navigation.navigate('Drawer');
+  };
 
   return (
     <View style={{flex: 1, height: height}}>
-      <View style={{flexDirection: 'row'}}>
-        <TouchableOpacity onPress={() => navigation.navigate('Drawer')}>
-          <Image
-            style={styles.lessThanIcon}
-            source={require('demo/components/assests/images/lessThan.png')}
-          />
-        </TouchableOpacity>
-        <Text style={styles.headingText}>Take a Photo</Text>
-      </View>
-      <View>
-        {backCamera === true ? (
-          <Camera
-            style={styles.cameraView}
-            ref={camera}
-            device={backCam}
-            isActive={true}
-            photo={true}
-          />
-        ) : (
-          <Camera
-            style={styles.cameraView}
-            ref={camera}
-            device={frontCam}
-            isActive={true}
-            photo={true}
-          />
-        )}
+      {saveButton === true ? (
+        <View>
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity onPress={backButton}>
+              <Image
+                style={styles.lessThanIcon}
+                source={require('demo/components/assests/images/lessThan.png')}
+              />
+            </TouchableOpacity>
+            <Text style={styles.headingText}>Take a Photo</Text>
+          </View>
+          <View>
+            <View>
+              <Image
+                style={styles.cameraView}
+                source={{uri: `file://${photo.path}`}}
+              />
+            </View>
+          </View>
+          <TouchableOpacity
+            style={[styles.saveButton, styles.enableButton]}
+            onPress={() => navigation.navigate('Drawer', photo.path)}>
+            <Text style={styles.buttontext}>Save</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <View>
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity onPress={backButton}>
+              <Image
+                style={styles.lessThanIcon}
+                source={require('demo/components/assests/images/lessThan.png')}
+              />
+            </TouchableOpacity>
+            <Text style={styles.headingText}>Take a Photo</Text>
+          </View>
+          <View>
+            {backCamera === true ? (
+              <Camera
+                style={styles.cameraView}
+                ref={camera}
+                device={backCam}
+                isActive={true}
+                photo={true}
+              />
+            ) : (
+              <Camera
+                style={styles.cameraView}
+                ref={camera}
+                device={frontCam}
+                isActive={true}
+                photo={true}
+              />
+            )}
 
-        <TouchableOpacity
-          style={styles.changeCameraButton}
-          onPress={() => setBackCamera(!backCamera)}>
-          <CameraIcon name="camera-outline" size={30} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.selfieButton}
-          onPress={takePicture}></TouchableOpacity>
-      </View>
-      <TouchableOpacity
-        style={styles.saveButton}
-        onPress={() => navigation.navigate('Drawer', photo)}>
-        <Text style={styles.buttontext}>Save</Text>
-      </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.changeCameraButton}
+              onPress={() => setBackCamera(!backCamera)}>
+              <CameraIcon name="camera-outline" size={30} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.selfieButton}
+              onPress={takePicture}></TouchableOpacity>
+          </View>
+          <TouchableOpacity style={styles.saveButton}>
+            <Text style={styles.buttontext}>Save</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };
@@ -114,7 +148,7 @@ const styles = StyleSheet.create({
   cameraView: {
     height: (491 / 844) * height,
     width: (342 / 390) * width,
-    borderRadius: 80,
+    // borderRadius: 80,
     marginLeft: (24 / 390) * width,
     marginTop: (34 / 844) * height,
   },
@@ -127,6 +161,9 @@ const styles = StyleSheet.create({
     marginLeft: (24 / 390) * width,
     marginTop: (22 / 844) * height,
     borderRadius: 8,
+  },
+  enableButton: {
+    backgroundColor: '#ff6a00',
   },
   buttontext: {
     color: '#FFFFFF',
